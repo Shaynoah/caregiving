@@ -1,0 +1,15 @@
+{
+  "name": "carebridge-kenya",
+  "version": "1.0.0",
+  "description": "CareBridge Kenya - Your Bridge to Trusted Care",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}

@@ -1,0 +1,147 @@
+/* Font imports */
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=DM+Sans:wght@400;500;700&display=swap');
+
+/* Base Typography */
+body {
+    font-family: 'DM Sans', sans-serif;
+    line-height: 1.5;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Quicksand', sans-serif;
+    line-height: 1.2;
+}
+
+/* Adjusted Font Sizes */
+h1 {
+    font-size: 2.75rem; /* Reduced from typical 3.5rem */
+    font-weight: 700;
+}
+
+h2 {
+    font-size: 2rem; /* Reduced from typical 2.5rem */
+    font-weight: 600;
+}
+
+h3 {
+    font-size: 1.5rem; /* Reduced from typical 2rem */
+    font-weight: 600;
+}
+
+h4 {
+    font-size: 1.25rem; /* Reduced from typical 1.5rem */
+    font-weight: 600;
+}
+
+p {
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+/* Navigation Styles */
+.navbar .logo-text h1 {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 700;
+    font-size: 1.5rem;
+}
+
+.navbar .tagline {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 400;
+    font-size: 0.85rem;
+}
+
+.nav-links a {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
+.nav-cta {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+/* Mobile Menu */
+.mobile-nav-links a {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 500;
+    font-size: 1.1rem;
+}
+
+/* Hero Section */
+.hero-title {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 700;
+}
+
+.hero-subtitle {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1.1rem;
+}
+
+/* Service Cards */
+.service-card h3 {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 600;
+    font-size: 1.3rem;
+}
+
+.service-card p {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+}
+
+/* Form Elements */
+label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+input, textarea, select {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+}
+
+/* Footer */
+.footer h3 {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.footer h4 {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.footer p, .footer li {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2.25rem;
+    }
+    
+    h2 {
+        font-size: 1.75rem;
+    }
+    
+    h3 {
+        font-size: 1.35rem;
+    }
+    
+    h4 {
+        font-size: 1.15rem;
+    }
+    
+    p {
+        font-size: 0.95rem;
+    }
+}
