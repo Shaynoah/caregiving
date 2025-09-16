@@ -11,9 +11,10 @@ const app = express();
 
 // Middleware
 app.use(cors({
-    origin: '*', // In production, change this to your specific domain
+    origin: ['http://localhost:5000', 'https://caregiving-1.onrender.com'],
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'Accept']
+    allowedHeaders: ['Content-Type', 'Accept'],
+    credentials: true
 }));
 app.use(express.json());
 
