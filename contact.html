@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="css/typography.css">
   <link rel="stylesheet" href="css/navbar.css">
   <link rel="stylesheet" href="css/toast.css">
+  <link rel="stylesheet" href="css/footer.css">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
@@ -106,6 +107,8 @@
                   <option value="Personal Care Assistance">Personal Care Assistance</option>
                   <option value="Disability & Rehabilitation Support">Disability & Rehabilitation Support</option>
                   <option value="Physiotherapy Services">Physiotherapy Services</option>
+                  <option value="Nutrition & Dietary Support">Nutrition & Dietary Support</option>
+                  <option value="Counselling & Emotional Support">Counselling & Emotional Support</option>
                 </select>
               </div>
               <div class="form-group">
@@ -141,7 +144,7 @@
                 <i class="fas fa-map-marker-alt"></i>
                 <div class="contact-details">
                   <span class="label">Location</span>
-                  <address>Nairobi,Kisumu,Mombasa
+                  <address>Nairobi,Lavington
                     <br> Kenya</address>
                 </div>
               </div>
@@ -175,7 +178,7 @@
     <section class="map-section">
       <div class="container">
         <div class="map-container" data-aos="fade-up">
-          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.818318657694!2d36.8170146!3d-1.2830973!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMcKwMTYnNTkuMiJTIDM2wrA0OScwMS4zIkU!5e0!3m2!1sen!2ske!4v1625136086839!5m2!1sen!2ske" 
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.807396006882!2d36.76533661475489!3d-1.2874599990669595!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182f1a6af785f0f3%3A0xc87e47e63ed244ed!2sLavington%2C%20Nairobi!5e0!3m2!1sen!2ske!4v1632734155316!5m2!1sen!2ske"
             width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
         </div>
       </div>
@@ -192,7 +195,7 @@
           </div>
           <div class="faq-item">
             <div class="faq-question"><h3>What areas do you serve?</h3><span class="toggle-icon">+</span></div>
-            <div class="faq-answer"><p>We currently serve Nairobi and its surrounding areas. Contact us to confirm if we cover your specific location.</p></div>
+            <div class="faq-answer"><p>We are located in Nairobi but offer services countrywide.</p></div>
           </div>
           <div class="faq-item">
             <div class="faq-question"><h3>How quickly can care services begin?</h3><span class="toggle-icon">+</span></div>
@@ -204,50 +207,7 @@
   </main>
 
   
-<!-- Footer will be included from main.js --><footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>CareBridge</h3>
-                    <p>Your Bridge to Trusted Care</p>
-                </div>
-                <div class="footer-section">
-                    <h4>Quick Links</h4>
-                    <ul>
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="about.html">About</a></li>
-                        <li><a href="services.html">Services</a></li>
-                       
-                        <li><a href="contact.html">Contact</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Services</h4>
-                    <ul>
-                        <li>Home Nursing & Medical Support</li>
-                        <li>Elderly Care & Companionship</li>
-                        <li>Personal Care Assistance</li>
-                        <li>Disability & Rehability</li>
-                        <li>In-Home Physiotherapy</li>
-                        <li>Nutrition Support</li>
-                        <li>Counselling & Emotional Support</li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Connect With Us</h4>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-linkedin"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 CareBridge. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
+
   <!-- Scripts -->
   <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
   <script>
@@ -317,9 +277,102 @@
       .then(data => document.getElementById("footer-placeholder").innerHTML = data);
   </script>
     <script src="js/main.js"></script>
-    <script src="js/navbar.js"></script>
+    <script src="js/config.js"></script>
+  <script src="js/navbar.js"></script>
     <script src="js/toast.js"></script>
     <script src="js/contact-new.js"></script>
+
+    <!-- Modern Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <!-- Brand Section -->
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <img src="images/CareBridge kenya logo.png" alt="CareBridge Kenya Logo">
+                        <div class="footer-logo-text">
+                            <h3>CareBridge</h3>
+                            <span>Your Bridge to Trusted Care</span>
+                        </div>
+                    </div>
+                    <p class="footer-about">
+                        Providing professional and compassionate care services across Kenya. Your trusted partner in home healthcare and support services.
+                    </p>
+                    <div class="footer-social">
+                        <a href="#" class="social-icon" aria-label="Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="social-icon" aria-label="Twitter">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-icon" aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-icon" aria-label="LinkedIn">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html"><i class="fas fa-chevron-right"></i> Home</a></li>
+                        <li><a href="about.html"><i class="fas fa-chevron-right"></i> About Us</a></li>
+                        <li><a href="services.html"><i class="fas fa-chevron-right"></i> Services</a></li>
+                        <li><a href="contact.html"><i class="fas fa-chevron-right"></i> Contact</a></li>
+                        <li><a href="terms.html"><i class="fas fa-chevron-right"></i> Terms & Conditions</a></li>
+                    </ul>
+                </div>
+
+                <!-- Services -->
+                <div class="footer-section">
+                    <h4>Our Services</h4>
+                    <ul class="footer-links">
+                        <li><a href="services.html#nursing"><i class="fas fa-user-nurse"></i> Home Nursing</a></li>
+                        <li><a href="services.html#elderly"><i class="fas fa-heart"></i> Elderly Care</a></li>
+                        <li><a href="services.html#personal"><i class="fas fa-hands-helping"></i> Personal Care</a></li>
+                        <li><a href="services.html#physio"><i class="fas fa-walking"></i> Physiotherapy</a></li>
+                        <li><a href="services.html#nutrition"><i class="fas fa-apple-alt"></i> Nutrition Support</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact Info -->
+                <div class="footer-section">
+                    <h4>Contact Us</h4>
+                    <ul class="footer-links footer-contact">
+                        <li>
+                            <i class="fas fa-phone"></i>
+                            <span>+254 716 219 556</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-envelope"></i>
+                            <span>info@carebridgekenya.com</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Lavington, Nairobi, Kenya</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-clock"></i>
+                            <span>Mon - Fri: 8:00 AM - 6:00 PM</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Footer Bottom -->
+            <div class="footer-bottom">
+                <p>&copy; 2025 CareBridge Kenya. All rights reserved.</p>
+                <div class="footer-bottom-links">
+                    <a href="terms.html">Terms & Conditions</a>
+                    <a href="privacy.html">Privacy Policy</a>
+                    <a href="sitemap.html">Sitemap</a>
+                </div>
+            </div>
+        </div>
+    </footer>
 
     <!-- Floating WhatsApp Button -->
     <a href="https://wa.me/254716219556" class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Chat with us on WhatsApp">

@@ -1231,6 +1231,7 @@
     padding: 8px 0;
     border-bottom: 1px solid rgba(59, 130, 246, 0.1);
     transition: all 0.3s ease;
+    
 }
 
 .location-areas li:hover {

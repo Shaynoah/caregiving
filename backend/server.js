@@ -10,11 +10,16 @@ dotenv.config();
 const app = express();
 
 // Middleware
-app.use(cors());
+app.use(cors({
+    origin: '*', // In production, change this to your specific domain
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Accept']
+}));
 app.use(express.json());
 
 // MongoDB Connection
-const mongoURI = 'mongodb+srv://carebridge_user:care2025@cluster0.hbuq5.mongodb.net/carebridge?retryWrites=true&w=majority';
+const mongoURI = process.env.MONGODB_URI || 'mongodb+srv://carebridge_user:care2025@cluster0.hbuq5.mongodb.net/carebridge?retryWrites=true&w=majority';
+const PORT = process.env.PORT || 5000;
 
 console.log('📡 Attempting to connect to MongoDB...');
 
@@ -31,6 +36,9 @@ mongoose.connect(mongoURI, {
     console.error('💡 Tip: Check your connection string and make sure your IP is whitelisted in MongoDB Atlas');
 });
 
+// Import routes
+const articleRoutes = require('./routes/articleRoutes');
+
 // Create Contact Schema
 const contactSchema = new mongoose.Schema({
     name: { type: String, required: true },
@@ -42,7 +50,27 @@ const contactSchema = new mongoose.Schema({
     createdAt: { type: Date, default: Date.now }
 });
 
+// Create Contact model
 const Contact = mongoose.model('Contact', contactSchema);
+
+// Contact form endpoint
+app.post('/api/contact', async (req, res) => {
+    console.log('📬 New contact form submission received:');
+    console.log(JSON.stringify(req.body, null, 2));
+    
+    try {
+        const contact = new Contact(req.body);
+        await contact.save();
+        console.log('✅ Contact form saved successfully!');
+        res.status(201).json({ message: 'Contact form submitted successfully!' });
+    } catch (error) {
+        console.error('❌ Error saving contact form:', error);
+        res.status(500).json({ message: 'Error submitting contact form' });
+    }
+});
+
+// Routes
+app.use('/api/articles', articleRoutes);
 
 // Test route
 app.get('/test', (req, res) => {
@@ -54,6 +82,18 @@ app.post('/api/contact', async (req, res) => {
     try {
         console.log('📩 Received contact form data:', req.body);
         
+        // Validate required fields
+        const requiredFields = ['name', 'email', 'phone', 'service', 'message'];
+        const missingFields = requiredFields.filter(field => !req.body[field]);
+        
+        if (missingFields.length > 0) {
+            return res.status(400).json({
+                success: false,
+                message: `Missing required fields: ${missingFields.join(', ')}`
+            });
+        }
+
+        // Create and save contact
         const contact = new Contact(req.body);
         const savedContact = await contact.save();
         
@@ -66,10 +106,21 @@ app.post('/api/contact', async (req, res) => {
     } catch (error) {
         console.error('❌ Error saving contact:', error);
         console.error('Error details:', error.stack);
+        
+        // MongoDB validation error
+        if (error.name === 'ValidationError') {
+            return res.status(400).json({
+                success: false,
+                message: 'Please check your input and try again.',
+                errors: Object.values(error.errors).map(err => err.message)
+            });
+        }
+        
+        // General error
         res.status(500).json({ 
             success: false,
-            message: 'Sorry, there was an error sending your message.',
-            error: error.message 
+            message: 'Sorry, there was an error sending your message. Please try again later.',
+            error: process.env.NODE_ENV === 'development' ? error.message : undefined
         });
     }
 });

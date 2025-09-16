@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: carebridge-platform
+    runtime: node
+    buildCommand: cd backend && npm install
+    startCommand: cd backend && node server.js
+    envVars:
+      - key: MONGODB_URI
+        value: mongodb+srv://carebridge_user:care2025@cluster0.hbuq5.mongodb.net/carebridge?retryWrites=true&w=majority
+      - key: PORT
+        value: 10000

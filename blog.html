@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - CareBridge Kenya</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/typography.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/blog.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Add meta tags for SEO -->
+    <meta name="description" content="Read the latest articles on elderly care, home nursing, and healthcare tips from CareBridge Kenya's professional care experts.">
+    <meta name="keywords" content="elderly care blog, healthcare articles, nursing tips, care guides, Kenya healthcare">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo-link">
+                <div class="logo">
+                    <div class="logo-wrapper">
+                        <img src="images/CareBridge kenya logo.png" alt="CareBridge Kenya Logo" class="logo-img">
+                    </div>
+                    <div class="logo-text">
+                        <h1>CareBridge</h1>
+                        <span class="tagline">Your Bridge to Trusted Care</span>
+                    </div>
+                </div>
+            </a>
+
+            <button class="hamburger">
+                <span class="hamburger-line"></span>
+            </button>
+
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="blog.html" class="active">Blog</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="blog-hero">
+        <div class="container">
+            <h1>Healthcare Insights & Articles</h1>
+            <p>Expert advice, tips, and insights from our professional care team</p>
+        </div>
+    </section>
+
+    <!-- Blog Content -->
+    <section class="blog-content">
+        <div class="container">
+            <!-- Search and Categories -->
+            <div class="blog-header">
+                <div class="blog-search">
+                    <input type="text" id="searchArticles" placeholder="Search articles...">
+                    <button><i class="fas fa-search"></i></button>
+                </div>
+                <div class="blog-categories">
+                    <button class="category-btn active" data-category="all">All</button>
+                    <button class="category-btn" data-category="elderly-care">Elderly Care</button>
+                    <button class="category-btn" data-category="health-tips">Health Tips</button>
+                    <button class="category-btn" data-category="caregiving">Caregiving</button>
+                    <button class="category-btn" data-category="nutrition">Nutrition</button>
+                </div>
+            </div>
+
+            <!-- Featured Article -->
+            <div class="featured-article" id="featuredArticle">
+                <!-- Dynamically populated by JavaScript -->
+            </div>
+
+            <!-- Article Grid -->
+            <div class="article-grid" id="articleGrid">
+                <!-- Dynamically populated by JavaScript -->
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination" id="pagination">
+                <!-- Dynamically populated by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Modern Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <!-- Brand Section -->
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <img src="images/CareBridge kenya logo.png" alt="CareBridge Kenya Logo">
+                        <div class="footer-logo-text">
+                            <h3>CareBridge</h3>
+                            <span>Your Bridge to Trusted Care</span>
+                        </div>
+                    </div>
+                    <p class="footer-about">
+                        Providing professional and compassionate care services across Kenya. Your trusted partner in home healthcare and support services.
+                    </p>
+                    <div class="footer-social">
+                        <a href="#" class="social-icon" aria-label="Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="social-icon" aria-label="Twitter">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-icon" aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-icon" aria-label="LinkedIn">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html"><i class="fas fa-chevron-right"></i> Home</a></li>
+                        <li><a href="about.html"><i class="fas fa-chevron-right"></i> About Us</a></li>
+                        <li><a href="services.html"><i class="fas fa-chevron-right"></i> Services</a></li>
+                        <li><a href="blog.html"><i class="fas fa-chevron-right"></i> Blog</a></li>
+                        <li><a href="contact.html"><i class="fas fa-chevron-right"></i> Contact</a></li>
+                    </ul>
+                </div>
+
+                <!-- Services -->
+                <div class="footer-section">
+                    <h4>Our Services</h4>
+                    <ul class="footer-links">
+                        <li><a href="services.html#nursing"><i class="fas fa-user-nurse"></i> Home Nursing</a></li>
+                        <li><a href="services.html#elderly"><i class="fas fa-heart"></i> Elderly Care</a></li>
+                        <li><a href="services.html#personal"><i class="fas fa-hands-helping"></i> Personal Care</a></li>
+                        <li><a href="services.html#physio"><i class="fas fa-walking"></i> Physiotherapy</a></li>
+                        <li><a href="services.html#nutrition"><i class="fas fa-apple-alt"></i> Nutrition Support</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact Info -->
+                <div class="footer-section">
+                    <h4>Contact Us</h4>
+                    <ul class="footer-links footer-contact">
+                        <li>
+                            <i class="fas fa-phone"></i>
+                            <span>+254 716 219 556</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-envelope"></i>
+                            <span>info@carebridgekenya.com</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Lavington, Nairobi, Kenya</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-clock"></i>
+                            <span>Mon - Fri: 8:00 AM - 6:00 PM</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Footer Bottom -->
+            <div class="footer-bottom">
+                <p>&copy; 2025 CareBridge Kenya. All rights reserved.</p>
+                <div class="footer-bottom-links">
+                    <a href="terms.html">Terms & Conditions</a>
+                    <a href="privacy.html">Privacy Policy</a>
+                    <a href="sitemap.html">Sitemap</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/navbar.js"></script>
+    <script src="js/blog.js"></script>
+</body>
+</html>
