@@ -11,7 +11,7 @@ const app = express();
 
 // Middleware
 app.use(cors({
-    origin: ['http://localhost:5000', 'https://caregiving-1.onrender.com'],
+    origin: ['http://localhost:5000', 'http://localhost:3000', 'https://caregiving-1.onrender.com', 'http://caregiving-1.onrender.com'],
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Accept'],
     credentials: true
@@ -54,21 +54,8 @@ const contactSchema = new mongoose.Schema({
 // Create Contact model
 const Contact = mongoose.model('Contact', contactSchema);
 
-// Contact form endpoint
-app.post('/api/contact', async (req, res) => {
-    console.log('📬 New contact form submission received:');
-    console.log(JSON.stringify(req.body, null, 2));
-    
-    try {
-        const contact = new Contact(req.body);
-        await contact.save();
-        console.log('✅ Contact form saved successfully!');
-        res.status(201).json({ message: 'Contact form submitted successfully!' });
-    } catch (error) {
-        console.error('❌ Error saving contact form:', error);
-        res.status(500).json({ message: 'Error submitting contact form' });
-    }
-});
+// Serve static files
+app.use(express.static('../'));
 
 // Routes
 app.use('/api/articles', articleRoutes);
@@ -152,7 +139,6 @@ app.use((err, req, res, next) => {
 });
 
 // Start server
-const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
     console.log('🚀 Server running on http://localhost:' + PORT);
     console.log('👉 Test the server at http://localhost:' + PORT + '/test');

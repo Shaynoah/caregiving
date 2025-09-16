@@ -3,7 +3,7 @@ const config = {
     // This will automatically use the Render URL in production
     API_URL: window.location.hostname === 'localhost' 
         ? 'http://localhost:5000'
-        : 'https://caregiving-1.onrender.com'
+        : window.location.origin
 };
 
 // Export the config
