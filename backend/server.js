@@ -138,8 +138,22 @@ app.use((err, req, res, next) => {
     });
 });
 
-// Start server
-app.listen(PORT, () => {
-    console.log('🚀 Server running on http://localhost:' + PORT);
-    console.log('👉 Test the server at http://localhost:' + PORT + '/test');
+// Connect to MongoDB and start server
+mongoose.connect(mongoURI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+})
+.then(() => {
+    console.log('✅ Connected to MongoDB successfully!');
+    console.log('📦 Database:', mongoose.connection.db.databaseName);
+    
+    // Start server after MongoDB connection is established
+    app.listen(PORT, () => {
+        console.log('🚀 Server running on http://localhost:' + PORT);
+        console.log('👉 Test the server at http://localhost:' + PORT + '/test');
+    });
+})
+.catch((err) => {
+    console.error('❌ MongoDB connection error:', err);
+    process.exit(1);
 });
