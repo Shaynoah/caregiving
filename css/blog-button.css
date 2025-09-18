@@ -1,0 +1,52 @@
+.nav-blog-button {
+    background: #007bff;
+    color: white !important;
+    padding: 8px 20px !important;
+    border-radius: 25px;
+    transition: all 0.3s ease !important;
+    margin-left: 15px;
+}
+
+.nav-blog-button:hover {
+    background: #0056b3;
+    transform: translateY(-2px);
+}
+
+.nav-blog-button i {
+    margin-right: 5px;
+}
+
+@media (max-width: 768px) {
+    .nav-blog-button {
+        margin: 10px auto;
+        display: inline-block;
+        text-align: center;
+    }
+}
+
+/* Add a floating blog button for mobile */
+.floating-blog-button {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #007bff;
+    color: white;
+    padding: 12px 25px;
+    border-radius: 30px;
+    text-decoration: none;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+.floating-blog-button i {
+    margin-right: 8px;
+}
+
+@media (max-width: 768px) {
+    .floating-blog-button {
+        display: flex;
+        align-items: center;
+    }
+}

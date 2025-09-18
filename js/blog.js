@@ -1,42 +1,22 @@
 // Blog functionality
 document.addEventListener('DOMContentLoaded', function() {
-    // Sample articles data - This would normally come from your database
-    const articles = [
-        {
-            id: 1,
-            title: "Essential Tips for Caring for Elderly Parents at Home",
-            excerpt: "Learn the best practices and essential tips for providing quality care for elderly parents in a home setting...",
-            category: "elderly-care",
-            image: "images/image1.png",
-            author: "Dr. Sarah Kimani",
-            date: "September 15, 2025",
-            readTime: "5 min read"
-        },
-        {
-            id: 2,
-            title: "Understanding Dementia: A Guide for Caregivers",
-            excerpt: "A comprehensive guide to understanding dementia and providing appropriate care for loved ones affected by it...",
-            category: "health-tips",
-            image: "images/image2.png",
-            author: "Dr. John Mwangi",
-            date: "September 14, 2025",
-            readTime: "7 min read"
-        },
-        {
-            id: 3,
-            title: "Nutrition Tips for Elderly Health and Wellness",
-            excerpt: "Discover the important aspects of nutrition for elderly health and how to maintain a balanced diet...",
-            category: "nutrition",
-            image: "images/image3.png",
-            author: "Sarah Wangari",
-            date: "September 13, 2025",
-            readTime: "4 min read"
+        // Fetch articles from the API
+    let articles = [];
+    
+    async function fetchArticles() {
+        try {
+            const response = await fetch(`${window.appConfig.API_URL}/api/articles`);
+            articles = await response.json();
+            return articles;
+        } catch (error) {
+            console.error('Error fetching articles:', error);
+            return [];
         }
-        // Add more articles as needed
-    ];
+    }
 
     // Initialize the blog
-    function initBlog() {
+    async function initBlog() {
+        await fetchArticles();
         displayFeaturedArticle();
         displayArticles();
         setupSearch();
