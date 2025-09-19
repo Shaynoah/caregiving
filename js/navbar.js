@@ -3,6 +3,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const navMenu = document.querySelector('.nav-menu');
     const navbar = document.querySelector('.navbar');
 
+    // Add blog link to navigation
+    const navList = document.querySelector('.nav-menu');
+    if (navList) {
+        const blogLink = document.createElement('li');
+        blogLink.innerHTML = `<a href="blog.html" class="nav-blog-link"><i class="fas fa-book-reader"></i> Blog</a>`;
+        
+        // Insert before the Contact link
+        const contactLink = navList.querySelector('li:last-child');
+        navList.insertBefore(blogLink, contactLink);
+    }
+
     // Toggle mobile menu
     hamburger?.addEventListener('click', () => {
         hamburger.classList.toggle('active');

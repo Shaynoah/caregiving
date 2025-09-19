@@ -78,6 +78,17 @@
     position: relative;
 }
 
+.nav-blog-link {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.nav-blog-link i {
+    font-size: 1.1rem;
+    color: #2563eb;
+}
+
 .nav-menu li a::after {
     content: '';
     position: absolute;
