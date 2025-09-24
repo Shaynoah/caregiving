@@ -1,15 +1,20 @@
+console.log('toast.js loaded');
+
 // Toast Notification System
 class ToastNotification {
     constructor() {
+        console.log('Creating toast notification system');
         this.init();
     }
 
     init() {
+        console.log('Initializing toast system');
         // Create toast container if it doesn't exist
         if (!document.querySelector('.toast-container')) {
             const container = document.createElement('div');
             container.className = 'toast-container';
             document.body.appendChild(container);
+            console.log('Toast container created');
         }
     }
 

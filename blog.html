@@ -3,182 +3,252 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog - CareBridge Kenya</title>
+    <title>Care Insights & Resources - CareBridge Kenya</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/typography.css">
-    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/modern-nav.css">
     <link rel="stylesheet" href="css/footer.css">
-    <link rel="stylesheet" href="css/blog.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Add meta tags for SEO -->
-    <meta name="description" content="Read the latest articles on elderly care, home nursing, and healthcare tips from CareBridge Kenya's professional care experts.">
-    <meta name="keywords" content="elderly care blog, healthcare articles, nursing tips, care guides, Kenya healthcare">
+    <!-- Enhanced SEO Meta Tags -->
+    <meta name="description" content="Expert insights on elderly care, professional nursing tips, and comprehensive healthcare guides from CareBridge Kenya's leading care specialists.">
+    <meta name="keywords" content="elderly care Kenya, healthcare resources, nursing guidelines, professional caregiving, senior wellness, care management">
+    <meta property="og:title" content="Care Insights & Resources - CareBridge Kenya">
+    <meta property="og:description" content="Expert healthcare insights and resources for better caregiving in Kenya">
+    <meta property="og:image" content="images/CareBridge kenya logo.png">
+    <meta name="twitter:card" content="summary_large_image">
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <a href="index.html" class="logo-link">
-                <div class="logo">
-                    <div class="logo-wrapper">
-                        <img src="images/CareBridge kenya logo.png" alt="CareBridge Kenya Logo" class="logo-img">
-                    </div>
-                    <div class="logo-text">
-                        <h1>CareBridge</h1>
-                        <span class="tagline">Your Bridge to Trusted Care</span>
-                    </div>
+    <!-- Modern Navigation -->
+    <nav class="modern-nav">
+        <div class="nav-wrapper">
+            <a href="index.html" class="nav-brand">
+                <div class="nav-logo">
+                    <img src="images/CareBridge kenya logo.png" alt="CareBridge Kenya Logo">
+                </div>
+                <div class="brand-text">
+                    <span class="brand-name">CareBridge</span>
+                    <span class="brand-slogan">Your Bridge to Trusted Care</span>
                 </div>
             </a>
 
-            <button class="hamburger">
-                <span class="hamburger-line"></span>
+            <button class="menu-toggle" aria-label="Toggle navigation menu">
+                <span></span>
+                <span></span>
+                <span></span>
             </button>
 
-            <ul class="nav-menu">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="services.html">Services</a></li>
-                <!-- <li><a href="blog.html" class="active">Blog</a></li> -->
-                <li><a href="contact.html">Contact</a></li>
+            <ul class="nav-links">
+                <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
+                <li class="nav-item"><a href="services.html" class="nav-link">Services</a></li>
+                <li class="nav-item"><a href="blog.html" class="nav-link active">Blog</a></li>
+                <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
             </ul>
         </div>
     </nav>
 
     <!-- Hero Section -->
     <section class="blog-hero">
-        <div class="hero-overlay"></div>
         <div class="container">
-            <h1>Healthcare Insights & Articles</h1>
-            <p class="hero-subtitle">Expert advice, tips, and stories from Kenya's leading care professionals</p>
+            <h1>Healthcare Insights & Resources</h1>
+            <p class="hero-subtitle">Expert knowledge and practical guidance from Kenya's leading healthcare professionals</p>
+            <div class="blog-search">
+                <div class="search-container">
+                    <input type="search" id="articleSearch" placeholder="Search for topics, guides, or advice..." aria-label="Search articles">
+                    <button type="button" aria-label="Search"><i class="fas fa-search"></i></button>
+                </div>
+            </div>
             <div class="blog-categories">
-                <a href="#elderly-care" class="category-tag">Elderly Care</a>
-                <a href="#home-nursing" class="category-tag">Home Nursing</a>
-                <a href="#health-tips" class="category-tag">Health Tips</a>
-                <a href="#caregiving" class="category-tag">Caregiving</a>
+                <button class="category-tag active" data-category="all">
+                    <i class="fas fa-th-large"></i> All Topics
+                </button>
+                <button class="category-tag" data-category="elderly-care">
+                    <i class="fas fa-user-friends"></i> Elderly Care
+                </button>
+                <button class="category-tag" data-category="medical">
+                    <i class="fas fa-heartbeat"></i> Medical Care
+                </button>
+                <button class="category-tag" data-category="wellness">
+                    <i class="fas fa-spa"></i> Wellness
+                </button>
+                <button class="category-tag" data-category="caregiving">
+                    <i class="fas fa-hands-helping"></i> Caregiving
+                </button>
+                <button class="category-tag" data-category="tips">
+                    <i class="fas fa-lightbulb"></i> Care Tips
+                </button>
             </div>
-            <p>Expert advice, tips, and insights from our professional care team</p>
         </div>
     </section>
-
-    <!-- Blog Content -->
-    <section class="blog-content">
+    
+    <!-- Main Content -->
+    <main class="blog-content">
         <div class="container">
-            <!-- Search and Categories -->
-            <div class="blog-header">
-                <div class="blog-search">
-                    <input type="text" id="searchArticles" placeholder="Search articles...">
-                    <button><i class="fas fa-search"></i></button>
+            <!-- Featured Section -->
+            <section class="featured-section">
+                <h2 class="section-title">Featured Article</h2>
+                <article class="featured-article">
+                    <div class="featured-image">
+                        <img src="images/img7.png" alt="Professional Care Standards">
+                        <span class="featured-badge"><i class="fas fa-star"></i> Featured</span>
+                    </div>
+                    <div class="featured-content">
+                        <span class="category"><i class="fas fa-award"></i> Professional Care</span>
+                        <h2>Transforming Senior Care in Kenya: A Comprehensive Guide</h2>
+                        <p>Discover how CareBridge Kenya is revolutionizing healthcare through innovative approaches to senior wellness, personalized care plans, and professional training.</p>
+                        <div class="article-meta">
+                            <div class="author">
+                                <!-- <img src="images/team/sarah.jpg" alt="Dr. Sarah Mwangi" class="author-avatar"> -->
+                                <div class="author-details">
+                                    <strong>Dr. Sarah Mwangi</strong><br>
+                                    <span>September 23, 2025</span>
+                                </div>
+                            </div>
+                            <a href="articles/transforming-senior-care.html" class="btn-read" data-article-id="1">
+                                Read Article <i class="fas fa-arrow-right"></i>
+                                <span class="btn-hover-text">View Full Guide</span>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+            </section>
+
+            <!-- Latest Articles -->
+            <section class="latest-articles">
+                <h2 class="section-title">Latest Insights</h2>
+                <div class="articles-grid">
+                    <!-- Article 1 -->
+                    <article class="article-card">
+                        <div class="card-image">
+                            <img src="images/image2.png" alt="Nutrition Guide">
+                            <span class="category"><i class="fas fa-apple-alt"></i> Nutrition</span>
+                        </div>
+                        <div class="card-content">
+                            <h3>Essential Nutrition Guide for Senior Wellness</h3>
+                            <p>Expert tips on maintaining a balanced diet for optimal health in senior years.</p>
+                            <div class="card-footer">
+                                <span class="date">September 20, 2025</span>
+                                <a href="articles/nutrition-guide.html" class="read-more" data-article-id="2">
+                                    <span class="read-more-text">Read More</span>
+                                    <i class="fas fa-arrow-right"></i>
+                                    <span class="hover-info">5 min read</span>
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Article 2 -->
+                    <article class="article-card">
+                        <div class="card-image">
+                            <img src="images/image8.png" alt="Mental Wellness">
+                            <span class="category"><i class="fas fa-brain"></i> Mental Health</span>
+                        </div>
+                        <div class="card-content">
+                            <h3>Supporting Mental Wellness in Senior Years</h3>
+                            <p>Practical approaches to maintaining cognitive health and emotional well-being.</p>
+                            <div class="card-footer">
+                                <span class="date">September 18, 2025</span>
+                                <a href="articles/mental-wellness.html" class="read-more" data-article-id="3">
+                                    <span class="read-more-text">Read More</span>
+                                    <i class="fas fa-arrow-right"></i>
+                                    <span class="hover-info">7 min read</span>
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Article 3 -->
+                    <article class="article-card">
+                        <div class="card-image">
+                            <img src="images/image4.png" alt="Smart Technology">
+                            <span class="category"><i class="fas fa-mobile-alt"></i> Technology</span>
+                        </div>
+                        <div class="card-content">
+                            <h3>Smart Technology in Modern Caregiving</h3>
+                            <p>How modern technology is making caregiving more efficient and effective.</p>
+                            <div class="card-footer">
+                                <span class="date">September 15, 2025</span>
+                                <a href="articles/smart-technology.html" class="read-more" data-article-id="3">
+                                    <span class="read-more-text">Read More</span>
+                                    <i class="fas fa-arrow-right"></i>
+                                    <span class="hover-info">8 min read</span>
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Article 4 -->
+                    <article class="article-card">
+                        <div class="card-image">
+                            <img src="images/image6.png" alt="Communication Skills">
+                            <span class="category"><i class="fas fa-comments"></i> Care Skills</span>
+                        </div>
+                        <div class="card-content">
+                            <h3>Effective Communication in Healthcare</h3>
+                            <p>Essential communication skills for better interaction with seniors.</p>
+                            <div class="card-footer">
+                                <span class="date">September 12, 2025</span>
+                                <a href="articles/effective-communication.html" class="read-more" data-article-id="4">
+                                    <span class="read-more-text">Read More</span>
+                                    <i class="fas fa-arrow-right"></i>
+                                    <span class="hover-info">6 min read</span>
+                                </a>
+                            </div>
+                        </div>
+                    </article>
                 </div>
-                <div class="blog-categories">
-                    <button class="category-btn active" data-category="all">All</button>
-                    <button class="category-btn" data-category="elderly-care">Elderly Care</button>
-                    <button class="category-btn" data-category="health-tips">Health Tips</button>
-                    <button class="category-btn" data-category="caregiving">Caregiving</button>
-                    <button class="category-btn" data-category="nutrition">Nutrition</button>
+            </section>
+
+            <!-- Newsletter Section -->
+            <section class="newsletter-section">
+                <div class="newsletter-content">
+                    <div class="newsletter-text">
+                        <i class="fas fa-envelope-open-text newsletter-icon"></i>
+                        <h2>Stay Informed</h2>
+                        <p>Join our community to receive weekly care tips and expert insights</p>
+                    </div>
+                    <form class="newsletter-form" id="newsletterForm">
+                        <div class="form-group">
+                            <input type="email" placeholder="Your email address" required>
+                            <button type="submit" class="btn-subscribe">
+                                Subscribe <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </div>
+                        <p class="privacy-note">
+                            <i class="fas fa-shield-alt"></i> Your privacy is protected
+                        </p>
+                    </form>
                 </div>
-            </div>
+            </section>
 
-            <!-- Featured Article -->
-            <div class="featured-article" id="featuredArticle">
-                <div class="article-image">
-                    <img src="images/image1.png" alt="Revolutionary Approaches in Modern Elderly Care">
+            <!-- Topics Section -->
+            <section class="topics-section">
+                <h2 class="section-title">Popular Topics</h2>
+                <div class="topics-grid">
+                    <a href="#" class="topic-card">
+                        <i class="fas fa-heart"></i>
+                        <h3>Senior Care</h3>
+                        <p>Comprehensive elderly care guides</p>
+                    </a>
+                    <a href="#" class="topic-card">
+                        <i class="fas fa-user-nurse"></i>
+                        <h3>Home Nursing</h3>
+                        <p>Professional care at home</p>
+                    </a>
+                    <a href="#" class="topic-card">
+                        <i class="fas fa-brain"></i>
+                        <h3>Wellness</h3>
+                        <p>Mental & physical health tips</p>
+                    </a>
+                    <a href="#" class="topic-card">
+                        <i class="fas fa-hands-helping"></i>
+                        <h3>Caregiving</h3>
+                        <p>Expert caregiving resources</p>
+                    </a>
                 </div>
-                <div class="featured-content">
-                    <span class="category">Healthcare Innovation</span>
-                    <h2>Revolutionary Approaches in Modern Elderly Care: The Future is Here</h2>
-                    <p>Discover cutting-edge technologies and innovative care methods transforming elderly care in Kenya. From AI-powered health monitoring to smart home solutions, learn how modern technology is revolutionizing the way we care for our loved ones.</p>
-                    <div class="article-meta">
-                        <span><i class="far fa-user"></i> Dr. Sarah Mwangi, Tech & Healthcare Specialist</span>
-                        <span><i class="far fa-calendar"></i> September 19, 2025</span>
-                        <span><i class="far fa-clock"></i> 10 min read</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Article Grid -->
-            <div class="article-grid" id="articleGrid">
-                <article class="article-card">
-                    <div class="article-image">
-                        <img src="images/image2.png" alt="Superfood Revolution for Seniors">
-                    </div>
-                    <div class="article-content">
-                        <span class="category">Nutrition</span>
-                        <h3>The Superfood Revolution: Power-Packed Nutrition for Vibrant Aging</h3>
-                        <p>Explore the world of African superfoods that are scientifically proven to boost longevity and enhance cognitive function. Discover easy-to-follow recipes and meal plans.</p>
-                        <div class="article-meta">
-                            <span><i class="far fa-user"></i> Chef Alice Kamau, Nutritionist</span>
-                            <span><i class="far fa-calendar"></i> September 15, 2025</span>
-                            <span><i class="far fa-clock"></i> 8 min read</span>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="article-card">
-                    <div class="article-image">
-                        <img src="images/image3.png" alt="Mindfulness and Memory Care">
-                    </div>
-                    <div class="article-content">
-                        <span class="category">Mental Wellness</span>
-                        <h3>Mindfulness & Memory: Breakthrough Techniques in Cognitive Care</h3>
-                        <p>Revolutionary approaches combining traditional wisdom with modern neuroscience to enhance memory and cognitive function. Features interactive exercises and digital tools.</p>
-                        <div class="article-meta">
-                            <span><i class="far fa-user"></i> Prof. John Omondi, Neuroscience Expert</span>
-                            <span><i class="far fa-calendar"></i> September 12, 2025</span>
-                            <span><i class="far fa-clock"></i> 12 min read</span>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="article-card">
-                    <div class="article-image">
-                        <img src="images/image4.png" alt="Digital Age Caregiving">
-                    </div>
-                    <div class="article-content">
-                        <span class="category">Tech & Care</span>
-                        <h3>Caregiving in the Digital Age: Smart Solutions for Modern Families</h3>
-                        <p>Discover how smart home technology, health monitoring apps, and AI assistants are transforming home care. Real success stories and practical implementation guides included.</p>
-                        <div class="article-meta">
-                            <span><i class="far fa-user"></i> Mary Wanjiku, Digital Health Consultant</span>
-                            <span><i class="far fa-calendar"></i> September 8, 2025</span>
-                            <span><i class="far fa-clock"></i> 15 min read</span>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="article-card">
-                    <div class="article-image">
-                        <img src="images/image5.png" alt="Holistic Wellness Revolution">
-                    </div>
-                    <div class="article-content">
-                        <span class="category">Holistic Health</span>
-                        <h3>The Holistic Wellness Revolution: Integrating Mind, Body & Spirit</h3>
-                        <p>Explore the powerful combination of traditional healing practices and modern medicine. Features meditation techniques, yoga adaptations, and spiritual wellness guides.</p>
-                        <div class="article-meta">
-                            <span><i class="far fa-user"></i> Dr. James Kiprop, Holistic Health Expert</span>
-                            <span><i class="far fa-calendar"></i> September 5, 2025</span>
-                            <span><i class="far fa-clock"></i> 11 min read</span>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="article-card">
-                    <div class="article-image">
-                        <img src="images/image6.png" alt="Future of Personalized Care">
-                    </div>
-                    <div class="article-content">
-                        <span class="category">Future Care</span>
-                        <h3>The Future of Personalized Care: AI-Driven Health Solutions</h3>
-                        <p>Step into the future of healthcare with AI-powered personalized care plans, genetic insights, and predictive health monitoring. See how technology is making care more effective and accessible.</p>
-                        <div class="article-meta">
-                            <span><i class="far fa-user"></i> Dr. Elizabeth Njeri, Digital Health Pioneer</span>
-                            <span><i class="far fa-calendar"></i> September 1, 2025</span>
-                            <span><i class="far fa-clock"></i> 14 min read</span>
-                        </div>
-                    </div>
-                </article>
-            </div>
+            </section>
         </div>
-    </section>
+    </main>
 
     <!-- Modern Footer -->
     <footer class="footer">
@@ -197,16 +267,16 @@
                         Providing professional and compassionate care services across Kenya. Your trusted partner in home healthcare and support services.
                     </p>
                     <div class="footer-social">
-                        <a href="#" class="social-icon" aria-label="Facebook">
+                        <a href="https://www.facebook.com/share/1FoT6tvoHA/" class="social-icon" aria-label="Facebook">
                             <i class="fab fa-facebook-f"></i>
                         </a>
                         <a href="#" class="social-icon" aria-label="Twitter">
                             <i class="fab fa-twitter"></i>
                         </a>
-                        <a href="#" class="social-icon" aria-label="Instagram">
+                        <a href="https://www.instagram.com/carebridge_kenya?igsh=MTBqcmFtb2Jhaml6dg==" class="social-icon" aria-label="Instagram">
                             <i class="fab fa-instagram"></i>
                         </a>
-                        <a href="#" class="social-icon" aria-label="LinkedIn">
+                        <a href="https://www.linkedin.com/in/carebridge-home-care-services-306215382?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" class="social-icon" aria-label="LinkedIn">
                             <i class="fab fa-linkedin-in"></i>
                         </a>
                     </div>
@@ -271,46 +341,8 @@
         </div>
     </footer>
 
-    <script src="js/navbar.js"></script>
-    <script>
-        // Search functionality
-        const searchInput = document.getElementById('searchArticles');
-        const articleGrid = document.getElementById('articleGrid');
-        const articles = articleGrid.getElementsByClassName('article-card');
-
-        searchInput.addEventListener('input', (e) => {
-            const searchTerm = e.target.value.toLowerCase();
-            Array.from(articles).forEach(article => {
-                const title = article.querySelector('h3').textContent.toLowerCase();
-                const content = article.querySelector('p').textContent.toLowerCase();
-                const category = article.querySelector('.category').textContent.toLowerCase();
-                
-                if (title.includes(searchTerm) || content.includes(searchTerm) || category.includes(searchTerm)) {
-                    article.style.display = '';
-                } else {
-                    article.style.display = 'none';
-                }
-            });
-        });
-
-        // Category filtering
-        const categoryBtns = document.querySelectorAll('.category-btn');
-        categoryBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                categoryBtns.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                
-                const category = btn.dataset.category.toLowerCase();
-                Array.from(articles).forEach(article => {
-                    const articleCategory = article.querySelector('.category').textContent.toLowerCase();
-                    if (category === 'all' || articleCategory === category) {
-                        article.style.display = '';
-                    } else {
-                        article.style.display = 'none';
-                    }
-                });
-            });
-        });
-    </script>
+    <script src="js/modern-nav.js"></script>
+    <script src="js/toast.js"></script>
+    <script src="js/blog.js"></script>
 </body>
 </html>

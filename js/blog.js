@@ -1,134 +1,105 @@
-// Blog functionality
 document.addEventListener('DOMContentLoaded', function() {
-        // Fetch articles from the API
-    let articles = [];
+    // Search functionality
+    const searchInput = document.getElementById('searchArticles');
+    const articles = document.querySelectorAll('.article-card');
     
-    async function fetchArticles() {
-        try {
-            const response = await fetch(`${window.appConfig.API_URL}/api/articles`);
-            articles = await response.json();
-            return articles;
-        } catch (error) {
-            console.error('Error fetching articles:', error);
-            return [];
-        }
-    }
-
-    // Initialize the blog
-    async function initBlog() {
-        await fetchArticles();
-        displayFeaturedArticle();
-        displayArticles();
-        setupSearch();
-        setupCategories();
-        setupPagination();
-    }
-
-    // Display featured article
-    function displayFeaturedArticle() {
-        const featuredArticle = articles[0]; // Usually your most recent or selected article
-        const featuredHTML = `
-            <img src="${featuredArticle.image}" alt="${featuredArticle.title}">
-            <div class="featured-content">
-                <span class="category">${formatCategory(featuredArticle.category)}</span>
-                <h2>${featuredArticle.title}</h2>
-                <p>${featuredArticle.excerpt}</p>
-                <div class="article-meta">
-                    <span><i class="far fa-user"></i> ${featuredArticle.author}</span>
-                    <span><i class="far fa-calendar"></i> ${featuredArticle.date}</span>
-                    <span><i class="far fa-clock"></i> ${featuredArticle.readTime}</span>
-                </div>
-            </div>
-        `;
-        document.getElementById('featuredArticle').innerHTML = featuredHTML;
-    }
-
-    // Display articles in grid
-    function displayArticles(filteredArticles = articles.slice(1)) {
-        const articlesHTML = filteredArticles.map(article => `
-            <article class="article-card">
-                <div class="article-image">
-                    <img src="${article.image}" alt="${article.title}">
-                </div>
-                <div class="article-content">
-                    <span class="category">${formatCategory(article.category)}</span>
-                    <h3>${article.title}</h3>
-                    <p>${article.excerpt}</p>
-                    <div class="article-meta">
-                        <span><i class="far fa-user"></i> ${article.author}</span>
-                        <span><i class="far fa-calendar"></i> ${article.date}</span>
-                    </div>
-                </div>
-            </article>
-        `).join('');
+    searchInput.addEventListener('input', function(e) {
+        const searchTerm = e.target.value.toLowerCase();
         
-        document.getElementById('articleGrid').innerHTML = articlesHTML;
-    }
+        articles.forEach(article => {
+            const title = article.querySelector('h3').textContent.toLowerCase();
+            const content = article.querySelector('p').textContent.toLowerCase();
+            const category = article.querySelector('.category').textContent.toLowerCase();
+            
+            if (title.includes(searchTerm) || content.includes(searchTerm) || category.includes(searchTerm)) {
+                article.style.display = 'block';
+                article.style.animation = 'scaleIn 0.3s ease';
+            } else {
+                article.style.display = 'none';
+            }
+        });
+    });
 
-    // Setup search functionality
-    function setupSearch() {
-        const searchInput = document.getElementById('searchArticles');
-        searchInput.addEventListener('input', (e) => {
-            const searchTerm = e.target.value.toLowerCase();
-            const filteredArticles = articles.filter(article => 
-                article.title.toLowerCase().includes(searchTerm) ||
-                article.excerpt.toLowerCase().includes(searchTerm)
-            );
-            displayArticles(filteredArticles);
+    // Newsletter subscription
+    const newsletterForm = document.getElementById('newsletterForm');
+    if (newsletterForm) {
+        newsletterForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const emailInput = this.querySelector('input[type="email"]');
+            const submitButton = this.querySelector('button[type="submit"]');
+            
+            // Store original button content
+            const originalButtonContent = submitButton.innerHTML;
+            
+            try {
+                submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Subscribing...';
+                submitButton.disabled = true;
+                
+                // Simulate API call (replace with actual API endpoint)
+                await new Promise(resolve => setTimeout(resolve, 1500));
+                
+                // Show success message
+                window.toast.success(
+                    'Successfully Subscribed!',
+                    'Thank you for subscribing to our newsletter. You\'ll receive our latest updates soon.'
+                );
+                
+                // Reset form
+                emailInput.value = '';
+            } catch (error) {
+                window.toast.error(
+                    'Subscription Failed',
+                    'There was a problem subscribing to the newsletter. Please try again.'
+                );
+            } finally {
+                submitButton.innerHTML = originalButtonContent;
+                submitButton.disabled = false;
+            }
         });
     }
 
-    // Setup category filtering
-    function setupCategories() {
-        const categoryBtns = document.querySelectorAll('.category-btn');
-        categoryBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                // Remove active class from all buttons
-                categoryBtns.forEach(b => b.classList.remove('active'));
-                // Add active class to clicked button
-                btn.classList.add('active');
+    // Category filter
+    const categoryButtons = document.querySelectorAll('.category-btn');
+    categoryButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const category = this.getAttribute('data-category').toLowerCase();
+            
+            // Update active state
+            categoryButtons.forEach(btn => btn.classList.remove('active'));
+            this.classList.add('active');
+            
+            // Filter articles
+            articles.forEach(article => {
+                const articleCategory = article.querySelector('.category').textContent.toLowerCase();
                 
-                const category = btn.dataset.category;
-                const filteredArticles = category === 'all' 
-                    ? articles.slice(1)
-                    : articles.filter(article => article.category === category);
-                displayArticles(filteredArticles);
+                if (category === 'all' || articleCategory.includes(category)) {
+                    article.style.display = 'block';
+                    article.style.animation = 'scaleIn 0.3s ease';
+                } else {
+                    article.style.display = 'none';
+                }
             });
         });
-    }
+    });
 
-    // Setup pagination
-    function setupPagination() {
-        const articlesPerPage = 6;
-        const pageCount = Math.ceil((articles.length - 1) / articlesPerPage);
-        
-        const paginationHTML = Array.from({ length: pageCount }, (_, i) => `
-            <button class="${i === 0 ? 'active' : ''}">${i + 1}</button>
-        `).join('');
-        
-        document.getElementById('pagination').innerHTML = paginationHTML;
-        
-        // Add click handlers
-        const pageBtns = document.querySelectorAll('.pagination button');
-        pageBtns.forEach((btn, index) => {
-            btn.addEventListener('click', () => {
-                pageBtns.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                
-                const start = index * articlesPerPage + 1;
-                const end = start + articlesPerPage;
-                displayArticles(articles.slice(start, end));
+    // Lazy loading for images
+    const images = document.querySelectorAll('.article-card img, .featured-article img');
+    if ('IntersectionObserver' in window) {
+        const imageObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    img.src = img.dataset.src;
+                    img.classList.add('loaded');
+                    observer.unobserve(img);
+                }
             });
         });
-    }
 
-    // Helper function to format category names
-    function formatCategory(category) {
-        return category.split('-').map(word => 
-            word.charAt(0).toUpperCase() + word.slice(1)
-        ).join(' ');
+        images.forEach(img => {
+            if (img.dataset.src) {
+                imageObserver.observe(img);
+            }
+        });
     }
-
-    // Initialize the blog
-    initBlog();
 });

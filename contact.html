@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/contact.css">
   <link rel="stylesheet" href="css/typography.css">
-  <link rel="stylesheet" href="css/navbar.css">
+  <link rel="stylesheet" href="css/modern-nav.css">
   <link rel="stylesheet" href="css/toast.css">
   <link rel="stylesheet" href="css/footer.css">
   <!-- Font Awesome -->
@@ -40,31 +40,32 @@
   </style>
 </head>
 <body>
-  <!-- Navigation -->
-  <nav class="navbar">
-    <div class="nav-container">
-      <a href="index.html" class="logo-link">
-        <div class="logo">
-          <div class="logo-wrapper">
-            <img src="images/CareBridge kenya logo.png" alt="CareBridge Kenya Logo" class="logo-img">
-          </div>
-          <div class="logo-text">
-            <h1>CareBridge</h1>
-            <span class="tagline">Your Bridge to Trusted Care</span>
-          </div>
+  <!-- Modern Navigation -->
+  <nav class="modern-nav">
+    <div class="nav-wrapper">
+      <a href="index.html" class="nav-brand">
+        <div class="nav-logo">
+          <img src="images/CareBridge kenya logo.png" alt="CareBridge Kenya Logo">
+        </div>
+        <div class="brand-text">
+          <span class="brand-name">CareBridge</span>
+          <span class="brand-slogan">Your Bridge to Trusted Care</span>
         </div>
       </a>
 
-      <button class="hamburger">
-        <span class="hamburger-line"></span>
-      </button>
-
-      <ul class="nav-menu">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="services.html">Services</a></li>
-        <li><a href="contact.html" class="active">Contact</a></li>
+      <ul class="nav-links">
+        <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+        <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
+        <li class="nav-item"><a href="services.html" class="nav-link">Services</a></li>
+        <li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
+        <li class="nav-item"><a href="contact.html" class="nav-link active">Contact</a></li>
       </ul>
+
+      <button class="menu-toggle" aria-label="Toggle navigation menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
     </div>
   </nav>
 
@@ -278,7 +279,7 @@
   </script>
     <script src="js/main.js"></script>
     <script src="js/config.js"></script>
-  <script src="js/navbar.js"></script>
+  <script src="js/modern-nav.js"></script>
     <script src="js/toast.js"></script>
     <script src="js/contact-new.js"></script>
 
@@ -299,16 +300,16 @@
                         Providing professional and compassionate care services across Kenya. Your trusted partner in home healthcare and support services.
                     </p>
                     <div class="footer-social">
-                        <a href="#" class="social-icon" aria-label="Facebook">
+                        <a href="https://www.facebook.com/share/1FoT6tvoHA/" class="social-icon" aria-label="Facebook">
                             <i class="fab fa-facebook-f"></i>
                         </a>
                         <a href="#" class="social-icon" aria-label="Twitter">
                             <i class="fab fa-twitter"></i>
                         </a>
-                        <a href="#" class="social-icon" aria-label="Instagram">
+                        <a href="https://www.instagram.com/carebridge_kenya?igsh=MTBqcmFtb2Jhaml6dg==" class="social-icon" aria-label="Instagram">
                             <i class="fab fa-instagram"></i>
                         </a>
-                        <a href="#" class="social-icon" aria-label="LinkedIn">
+                        <a href="https://www.linkedin.com/in/carebridge-home-care-services-306215382?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" class="social-icon" aria-label="LinkedIn">
                             <i class="fab fa-linkedin-in"></i>
                         </a>
                     </div>

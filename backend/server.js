@@ -10,32 +10,50 @@ dotenv.config();
 const app = express();
 
 // Middleware
-app.use(cors({
-    origin: ['http://localhost:5000', 'http://localhost:3000', 'https://caregiving-1.onrender.com', 'http://caregiving-1.onrender.com'],
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'Accept'],
-    credentials: true
-}));
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    
+    // Handle preflight requests
+    if (req.method === 'OPTIONS') {
+        return res.status(200).end();
+    }
+    
+    next();
+});
+
+// Log all requests
+app.use((req, res, next) => {
+    console.log(`${new Date().toISOString()} - ${req.method} ${req.url}`);
+    console.log('Headers:', req.headers);
+    next();
+});
 app.use(express.json());
 
 // MongoDB Connection
 const mongoURI = process.env.MONGODB_URI || 'mongodb+srv://carebridge_user:care2025@cluster0.hbuq5.mongodb.net/carebridge?retryWrites=true&w=majority';
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 4527;
 
 console.log('📡 Attempting to connect to MongoDB...');
 
-mongoose.connect(mongoURI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-})
-.then(() => {
-    console.log('✅ Connected to MongoDB successfully!');
-    console.log('📦 Database:', mongoose.connection.db.databaseName);
-})
-.catch((err) => {
-    console.error('❌ MongoDB connection error:', err);
-    console.error('💡 Tip: Check your connection string and make sure your IP is whitelisted in MongoDB Atlas');
-});
+// Connect to MongoDB
+async function startServer() {
+    try {
+        await mongoose.connect(mongoURI);
+        console.log('✅ Connected to MongoDB successfully');
+        
+        app.listen(PORT, () => {
+            console.log(`🚀 Server running on port ${PORT}`);
+            console.log(`👉 Test API at http://localhost:${PORT}/api/articles`);
+        });
+    } catch (err) {
+        console.error('❌ MongoDB connection error:', err);
+        process.exit(1);
+    }
+}
+
+startServer();
 
 // Import routes
 const articleRoutes = require('./routes/articleRoutes');
@@ -54,8 +72,14 @@ const contactSchema = new mongoose.Schema({
 // Create Contact model
 const Contact = mongoose.model('Contact', contactSchema);
 
-// Serve static files
-app.use(express.static('../'));
+// Serve static files with security options
+app.use(express.static('../', {
+    dotfiles: 'ignore',
+    etag: true,
+    maxAge: '1d',
+    index: false,
+    redirect: false
+}));
 
 // Routes
 app.use('/api/articles', articleRoutes);
@@ -68,7 +92,13 @@ app.get('/test', (req, res) => {
 // Contact form route
 app.post('/api/contact', async (req, res) => {
     try {
-        console.log('📩 Received contact form data:', req.body);
+        console.log('📩 Received contact form request');
+        console.log('Headers:', req.headers);
+        console.log('Body:', req.body);
+        
+        if (!req.body) {
+            throw new Error('Request body is empty');
+        }
         
         // Validate required fields
         const requiredFields = ['name', 'email', 'phone', 'service', 'message'];
@@ -78,6 +108,23 @@ app.post('/api/contact', async (req, res) => {
             return res.status(400).json({
                 success: false,
                 message: `Missing required fields: ${missingFields.join(', ')}`
+            });
+        }
+
+        // Check if this is a duplicate submission (within last 5 seconds)
+        const recentSubmission = await Contact.findOne({
+            name: req.body.name,
+            email: req.body.email,
+            message: req.body.message,
+            createdAt: { $gt: new Date(Date.now() - 5000) }
+        });
+
+        if (recentSubmission) {
+            console.log('⚠️ Duplicate submission detected');
+            return res.status(200).json({ 
+                success: true,
+                message: 'Thank you! Your message has been sent successfully.',
+                contact: recentSubmission
             });
         }
 
@@ -138,22 +185,4 @@ app.use((err, req, res, next) => {
     });
 });
 
-// Connect to MongoDB and start server
-mongoose.connect(mongoURI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-})
-.then(() => {
-    console.log('✅ Connected to MongoDB successfully!');
-    console.log('📦 Database:', mongoose.connection.db.databaseName);
-    
-    // Start server after MongoDB connection is established
-    app.listen(PORT, () => {
-        console.log('🚀 Server running on http://localhost:' + PORT);
-        console.log('👉 Test the server at http://localhost:' + PORT + '/test');
-    });
-})
-.catch((err) => {
-    console.error('❌ MongoDB connection error:', err);
-    process.exit(1);
-});
+// No content - removing redundant code

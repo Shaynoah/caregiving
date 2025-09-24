@@ -1,0 +1,43 @@
+.floating-blog-button {
+    position: fixed;
+    left: 20px; /* Changed from right to left */
+    bottom: 80px;
+    background: #2563eb;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 30px;
+    text-decoration: none;
+    box-shadow: 0 4px 15px rgba(37, 99, 235, 0.2);
+    display: none;
+    align-items: center;
+    gap: 8px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    z-index: 998; /* Below WhatsApp button */
+}
+
+.floating-blog-button i {
+    font-size: 1.2rem;
+}
+
+.floating-blog-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(37, 99, 235, 0.3);
+    background: #1e40af;
+    color: white;
+}
+
+@media (max-width: 768px) {
+    .floating-blog-button {
+        display: flex;
+    }
+    .floating-blog-button span {
+        display: none;
+    }
+    .floating-blog-button {
+        padding: 12px;
+    }
+    .floating-blog-button i {
+        margin: 0;
+    }
+}

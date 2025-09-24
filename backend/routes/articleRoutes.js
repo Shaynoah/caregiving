@@ -2,33 +2,20 @@ const express = require('express');
 const router = express.Router();
 const Article = require('../models/Article');
 
-// Get all published articles with pagination and filters
+// Get all published articles
 router.get('/', async (req, res) => {
     try {
-        const page = parseInt(req.query.page) || 1;
-        const limit = parseInt(req.query.limit) || 10;
-        const category = req.query.category;
-        const search = req.query.search;
-        const tag = req.query.tag;
-
-        const query = { status: 'published' };
-
-        // Apply filters
-        if (category) query.category = category;
-        if (tag) query.tags = tag;
-        if (search) {
-            query.$text = { $search: search };
-        }
-
-        const articles = await Article.find(query)
-            .select('-content') // Exclude full content for list view
+        console.log('📨 Received request for articles');
+        
+        const articles = await Article.find()
             .sort({ publishedAt: -1 })
-            .skip((page - 1) * limit)
-            .limit(limit)
-            .populate('author', 'name');
+            .select('title excerpt content category image author publishedAt readTime');
 
         const total = await Article.countDocuments(query);
 
+        console.log('📝 Found articles:', articles.length);
+        console.log('First article:', articles[0]);
+        
         res.json({
             articles,
             currentPage: page,

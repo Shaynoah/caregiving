@@ -1,8 +1,13 @@
 // Contact Form Handler
+console.log('index-contact.js loaded');
+
 document.addEventListener('DOMContentLoaded', () => {
+    console.log('DOM Content Loaded');
     const contactForm = document.getElementById('contactForm');
+    console.log('Contact form element:', contactForm);
     
     if (contactForm) {
+        console.log('Adding submit listener to form');
         contactForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             
@@ -22,7 +27,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     message: contactForm.elements.message.value
                 };
 
-                const response = await fetch('http://localhost:5000/api/contact', {
+                console.log('Sending request to:', `${window.appConfig.API_URL}/api/contact`);
+                console.log('Form data:', formData);
+                
+                const response = await fetch(`${window.appConfig.API_URL}/api/contact`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -30,9 +38,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     body: JSON.stringify(formData)
                 });
                 
+                console.log('Response status:', response.status);
+                console.log('Response headers:', Object.fromEntries(response.headers));
+                
                 const data = await response.json();
 
-                if (response.ok) {
+                if (data.success) {
                     // Show success toast
                     window.toast.success(
                         'Message Sent Successfully!',
@@ -44,10 +55,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             } catch (error) {
                 console.error('Form submission error:', error);
-                // Show error toast
+                console.error('Full error details:', {
+                    message: error.message,
+                    stack: error.stack,
+                    response: error.response
+                });
+                
+                // Show detailed error toast
                 window.toast.error(
                     'Submission Failed',
-                    error.message || 'There was a problem sending your message. Please try again.'
+                    `Error: ${error.message}. Please try again or contact support if the problem persists.`
                 );
             } finally {
                 submitButton.innerHTML = originalButtonText;

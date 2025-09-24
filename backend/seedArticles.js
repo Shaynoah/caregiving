@@ -3,47 +3,67 @@ const Article = require('./models/Article');
 
 const sampleArticles = [
     {
-        title: "Essential Tips for Caring for Elderly Parents at Home",
-        slug: "essential-tips-caring-elderly-parents-home",
-        excerpt: "Learn the best practices and essential tips for providing quality care for elderly parents in a home setting.",
+        title: "10 Essential Tips for Caring for Elderly Parents in Nairobi",
+        slug: "essential-tips-elderly-care-nairobi",
+        excerpt: "Comprehensive guide for families providing care for elderly parents in Nairobi's unique environment, with practical tips and local resources.",
         content: `
-            <h2>Understanding the Challenges of Elderly Care</h2>
-            <p>Caring for elderly parents at home can be both rewarding and challenging. As our parents age, their needs become more complex, requiring careful attention and dedicated care.</p>
+            <div class="article-content">
+                <h2>Understanding Elderly Care in Nairobi's Context</h2>
+                <p>Caring for elderly parents in Nairobi presents unique challenges and opportunities that require a balanced approach combining traditional values with modern healthcare practices.</p>
 
-            <h3>1. Create a Safe Environment</h3>
-            <p>Safety should be your top priority when caring for elderly parents at home:</p>
-            <ul>
-                <li>Install handrails in bathrooms and hallways</li>
-                <li>Remove trip hazards like loose rugs</li>
-                <li>Improve lighting in all areas</li>
-                <li>Make modifications for better accessibility</li>
-            </ul>
+                <h3>1. Creating a Safe Home Environment</h3>
+                <p>Adapt your Nairobi home with these essential modifications:</p>
+                <ul>
+                    <li>Install handrails in bathrooms and corridors</li>
+                    <li>Ensure proper lighting, with backup solutions for power outages</li>
+                    <li>Remove trip hazards and arrange furniture for easy navigation</li>
+                    <li>Consider local climate when making modifications (ventilation, temperature control)</li>
+                </ul>
 
-            <h3>2. Establish a Daily Routine</h3>
-            <p>A consistent daily routine helps create structure and reduces anxiety:</p>
-            <ul>
-                <li>Regular meal times</li>
-                <li>Scheduled medication times</li>
-                <li>Regular exercise periods</li>
-                <li>Social activities and rest periods</li>
-            </ul>
+                <h3>2. Navigating Nairobi's Healthcare System</h3>
+                <p>Make the most of available healthcare resources:</p>
+                <ul>
+                    <li>Build relationships with reliable local healthcare providers</li>
+                    <li>Keep updated contacts for nearby hospitals and clinics</li>
+                    <li>Understand NHIF coverage and private insurance options</li>
+                    <li>Create an emergency response plan considering local traffic patterns</li>
+                </ul>
 
-            <h3>3. Monitor Health Carefully</h3>
-            <p>Keep track of vital health indicators:</p>
-            <ul>
-                <li>Regular blood pressure checks</li>
-                <li>Medication management</li>
-                <li>Doctor's appointments</li>
-                <li>Diet and nutrition monitoring</li>
-            </ul>
+                <h3>3. Nutrition and Local Diet Planning</h3>
+                <p>Develop a nutrition plan that incorporates local foods:</p>
+                <ul>
+                    <li>Balance traditional Kenyan dishes with nutritional needs</li>
+                    <li>Source fresh produce from trusted local markets</li>
+                    <li>Work with nutritionists familiar with local dietary practices</li>
+                    <li>Plan meals that combine comfort foods with healthy options</li>
+                </ul>
+
+                <h3>4. Social and Community Integration</h3>
+                <p>Maintain strong community connections:</p>
+                <ul>
+                    <li>Engage with local senior citizen groups</li>
+                    <li>Participate in community activities</li>
+                    <li>Preserve family traditions and social gatherings</li>
+                    <li>Connect with support groups for caregivers in Nairobi</li>
+                </ul>
+
+                <h3>5. Cultural Considerations in Care</h3>
+                <p>Respect and integrate cultural aspects:</p>
+                <ul>
+                    <li>Balance traditional and modern care approaches</li>
+                    <li>Include extended family in care decisions</li>
+                    <li>Respect cultural practices and beliefs</li>
+                    <li>Foster intergenerational connections</li>
+                </ul>
+            </div>
         `,
         category: "elderly-care",
-        image: "images/elderly-care-tips.jpg",
+        image: "images/elderly-care-nairobi.jpg",
         author: "645f3c1720319f4d52f5f5f5", // This will be replaced with actual user ID
-        tags: ["elderly care", "home care", "caregiving tips", "senior health"],
-        readTime: 8,
-        metaTitle: "Essential Tips for Caring for Elderly Parents at Home | CareBridge Kenya",
-        metaDescription: "Learn essential tips and best practices for providing quality care to elderly parents at home. Practical advice for creating a safe and comfortable environment.",
+        tags: ["elderly care", "Nairobi healthcare", "cultural care", "family support", "senior health"],
+        readTime: 12,
+        metaTitle: "10 Essential Tips for Caring for Elderly Parents in Nairobi | CareBridge Kenya",
+        metaDescription: "Comprehensive guide for providing elderly care in Nairobi. Learn about local healthcare, cultural considerations, and practical tips for family caregivers.",
         status: "published",
         publishedAt: new Date()
     },
