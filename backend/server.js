@@ -10,10 +10,8 @@ const app = express();
 const allowedOrigins = [
     'http://localhost:3000',
     'http://localhost:5000',
-    'https://carebridge-kenya.onrender.com',
-    'https://carebridge-kenya-api.onrender.com',
-    'https://carebridge-kenya.com',
-    'https://www.carebridge-kenya.com'
+    'https://caregiving-1.onrender.com',
+    'https://caregiving-api.onrender.com'
 ];
 
 app.use(cors({

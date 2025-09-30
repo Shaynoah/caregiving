@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const API_URL = window.location.hostname === 'localhost' 
             ? 'http://localhost:5000'
-            : 'https://carebridge-kenya-api.onrender.com';
+            : 'https://caregiving-api.onrender.com';
         console.log('Sending to:', `${API_URL}/api/contact`);
 
         try {
