@@ -11,7 +11,9 @@ const allowedOrigins = [
     'http://localhost:3000',
     'http://localhost:5000',
     'https://carebridge-kenya.onrender.com',
-    'https://carebridge-kenya-api.onrender.com'
+    'https://carebridge-kenya-api.onrender.com',
+    'https://carebridge-kenya.com',
+    'https://www.carebridge-kenya.com'
 ];
 
 app.use(cors({
@@ -77,19 +79,31 @@ const Contact = mongoose.model('Contact', contactSchema);
 
 app.post('/api/contact', async (req, res) => {
     try {
-        console.log('Received:', req.body);
+        console.log('Received contact request from origin:', req.headers.origin);
+        console.log('Request headers:', req.headers);
+        console.log('Request body:', req.body);
+        
         const contact = new Contact(req.body);
+        console.log('Created contact object:', contact);
+        
         const saved = await contact.save();
+        console.log('Successfully saved contact:', saved);
+        
         res.status(200).json({
             success: true,
             message: 'Message sent successfully!',
             contact: saved
         });
     } catch (error) {
-        console.error(error);
+        console.error('Error in /api/contact:', error);
+        console.error('Error details:', {
+            name: error.name,
+            message: error.message,
+            stack: error.stack
+        });
         res.status(500).json({
             success: false,
-            message: 'Error saving message'
+            message: 'Error saving message: ' + error.message
         });
     }
 });
