@@ -20,10 +20,12 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         console.log('Sending form data:', formData);
+        
 
-        const API_URL = window.location.hostname === 'localhost' 
-            ? 'http://localhost:5000'
-            : 'https://caregiving-api.onrender.com';
+       const API_URL = window.location.hostname === 'localhost' 
+    ? 'http://localhost:5000'
+    : 'https://caregiving-1.onrender.com';
+
         console.log('Sending to:', `${API_URL}/api/contact`);
 
         try {
