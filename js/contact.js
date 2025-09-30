@@ -19,8 +19,15 @@ document.addEventListener('DOMContentLoaded', () => {
             source: 'contact'
         };
 
+        console.log('Sending form data:', formData);
+
+        const API_URL = window.location.hostname === 'localhost' 
+            ? 'http://localhost:5000'
+            : 'https://carebridge-kenya-api.onrender.com';
+        console.log('Sending to:', `${API_URL}/api/contact`);
+
         try {
-            const response = await fetch(`${window.appConfig.API_URL}/api/contact`, {
+            const response = await fetch(`${API_URL}/api/contact`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

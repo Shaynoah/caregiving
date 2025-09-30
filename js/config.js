@@ -3,9 +3,17 @@ console.log('config.js loaded');
 // Configuration for API endpoints
 const config = {
     // This will automatically use the Render URL in production
-    API_URL: window.location.hostname === 'localhost' 
-        ? 'http://localhost:4527'  // Updated to match the actual port
-        : 'https://carebridge-backend.onrender.com'  // Update this to your actual Render backend URL
+    API_URL: (() => {
+        const hostname = window.location.hostname;
+        console.log('Current hostname:', hostname);
+
+        if (hostname === 'localhost' || hostname === '127.0.0.1') {
+            return 'http://localhost:5000';  // Local development
+        }
+
+        // For Render deployment
+        return 'https://carebridge-platform.onrender.com';  // Matches your Render service name
+    })()
 };
 
 // Log the configuration for debugging

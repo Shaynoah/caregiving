@@ -27,10 +27,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     message: contactForm.elements.message.value
                 };
 
-                console.log('Sending request to:', `${window.appConfig.API_URL}/api/contact`);
+                if (!window.appConfig || !window.appConfig.API_URL) {
+                    throw new Error('API configuration not found. Make sure config.js is loaded.');
+                }
+
+                const apiUrl = `${window.appConfig.API_URL}/api/contact`;
+                console.log('Sending request to:', apiUrl);
                 console.log('Form data:', formData);
                 
-                const response = await fetch(`${window.appConfig.API_URL}/api/contact`, {
+                const response = await fetch(apiUrl, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
