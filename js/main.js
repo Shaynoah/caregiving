@@ -83,7 +83,65 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-// Note: Contact form handling moved to contact.js
+// Contact Form Submission
+document.addEventListener('DOMContentLoaded', () => {
+    const contactForm = document.getElementById('contactForm');
+    const contactFormStatus = document.getElementById('contactFormStatus');
+
+    if (contactForm) {
+        contactForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            // Show loading state
+            const submitButton = contactForm.querySelector('button[type="submit"]');
+            const originalButtonText = submitButton.textContent;
+            submitButton.textContent = 'Sending...';
+            submitButton.disabled = true;
+
+            // Clear previous status
+            contactFormStatus.textContent = '';
+            contactFormStatus.className = '';
+
+            try {
+                const formData = {
+                    name: contactForm.name.value,
+                    email: contactForm.email.value,
+                    phone: contactForm.phone.value,
+                    service: contactForm.service.value,
+                    message: contactForm.message.value
+                };
+
+                const response = await fetch('http://localhost:5000/api/contact', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    // Success
+                    contactFormStatus.textContent = data.message;
+                    contactFormStatus.className = 'success-message';
+                    contactForm.reset();
+                } else {
+                    // Server returned an error
+                    throw new Error(data.message || 'Failed to send message');
+                }
+            } catch (error) {
+                // Handle network or other errors
+                contactFormStatus.textContent = error.message || 'An error occurred. Please try again.';
+                contactFormStatus.className = 'error-message';
+            } finally {
+                // Reset button state
+                submitButton.textContent = originalButtonText;
+                submitButton.disabled = false;
+            }
+        });
+    }
+});
 
 // Mobile Menu Toggle
 hamburger.addEventListener('click', () => {
