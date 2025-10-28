@@ -90,3 +90,4 @@ articleSchema.index({ status: 1, publishedAt: -1 });
 const Article = mongoose.model('Article', articleSchema);
 
 module.exports = Article;
+// moved to __trash

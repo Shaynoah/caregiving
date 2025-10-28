@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     name: contactForm.elements.name.value,
                     email: contactForm.elements.email.value,
                     phone: contactForm.elements.phone.value,
-                    service: contactForm.elements.service.value,
+                    service_type: contactForm.service.value,
                     message: contactForm.elements.message.value
                 };
 
@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     // Show success toast
                     window.toast.success(
                         'Message Sent Successfully!',
-                        `Thank you ${formData.name}! We'll get back to you soon regarding your interest in ${formData.service}.`
+                        `Thank you ${formData.name}! We'll get back to you soon regarding your interest in ${formData.service_type}.`
                     );
                     contactForm.reset();
                 } else {
