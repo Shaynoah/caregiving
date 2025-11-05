@@ -1,80 +1,71 @@
-// Contact Form Handler
-console.log('index-contact.js loaded');
-
+// Contact form submission handler
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('DOM Content Loaded');
-    const contactForm = document.getElementById('contactForm');
-    console.log('Contact form element:', contactForm);
+    const form = document.getElementById('contactForm');
     
-    if (contactForm) {
-        console.log('Adding submit listener to form');
-        contactForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            const submitButton = contactForm.querySelector('button[type="submit"]');
-            
-            // Save original button text and show loading state
-            const originalButtonText = submitButton.textContent;
-            submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
-            submitButton.disabled = true;
-            
-            try {
-                const formData = {
-                    name: contactForm.elements.name.value,
-                    email: contactForm.elements.email.value,
-                    phone: contactForm.elements.phone.value,
-                    service: contactForm.elements.service.value,
-                    message: contactForm.elements.message.value
-                };
-
-                if (!window.appConfig || !window.appConfig.API_URL) {
-                    throw new Error('API configuration not found. Make sure config.js is loaded.');
-                }
-
-                const apiUrl = `${window.appConfig.API_URL}/api/contact`;
-                console.log('Sending request to:', apiUrl);
-                console.log('Form data:', formData);
-                
-                const response = await fetch(apiUrl, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(formData)
-                });
-                
-                console.log('Response status:', response.status);
-                console.log('Response headers:', Object.fromEntries(response.headers));
-                
-                const data = await response.json();
-
-                if (data.success) {
-                    // Show success toast
-                    window.toast.success(
-                        'Message Sent Successfully!',
-                        `Thank you ${formData.name}! We'll get back to you soon regarding your interest in ${formData.service}.`
-                    );
-                    contactForm.reset();
-                } else {
-                    throw new Error(data.message || 'Failed to send message');
-                }
-            } catch (error) {
-                console.error('Form submission error:', error);
-                console.error('Full error details:', {
-                    message: error.message,
-                    stack: error.stack,
-                    response: error.response
-                });
-                
-                // Show detailed error toast
-                window.toast.error(
-                    'Submission Failed',
-                    `Error: ${error.message}. Please try again or contact support if the problem persists.`
-                );
-            } finally {
-                submitButton.innerHTML = originalButtonText;
-                submitButton.disabled = false;
-            }
-        });
+    if (!form) {
+        console.error('Contact form not found');
+        return;
     }
+
+    form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        const submitBtn = form.querySelector('button[type="submit"]');
+        const originalText = submitBtn.textContent;
+        submitBtn.textContent = 'Sending...';
+        submitBtn.disabled = true;
+
+        const formData = {
+            name: form.name.value,
+            email: form.email.value,
+            phone: form.phone.value,
+            service: form.service.value,
+            message: form.message.value
+        };
+
+        console.log('Sending form data:', formData);
+
+        try {
+            console.log('Submitting form data:', formData);
+            
+            // Submit to PHP endpoint
+            const response = await fetch('http://localhost/care/php/contact.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                const toast = new ToastNotification();
+                toast.show({
+                    type: 'success',
+                    title: 'Message Sent!',
+                    message: 'Thank you for your message. We will get back to you soon!'
+                });
+                form.reset();
+            } else {
+                const toast = new ToastNotification();
+                toast.show({
+                    type: 'error',
+                    title: 'Error',
+                    message: data.message || 'Something went wrong. Please try again.'
+                });
+            }
+        } catch (error) {
+            new ToastNotification().show({
+                type: 'error',
+                title: 'Connection Error',
+                message: 'Could not submit form. Please check your connection and try again.'
+            });
+        }
+
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
+    });
 });
+

@@ -1,6 +1,11 @@
+// Contact form submission handler
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('contactForm');
-    if (!form) return;
+    
+    if (!form) {
+        console.error('Contact form not found');
+        return;
+    }
 
     form.addEventListener('submit', async function(e) {
         e.preventDefault();
@@ -15,21 +20,16 @@ document.addEventListener('DOMContentLoaded', () => {
             email: form.email.value,
             phone: form.phone.value,
             service: form.service.value,
-            message: form.message.value,
-            source: 'contact'
+            message: form.message.value
         };
 
         console.log('Sending form data:', formData);
-        
-
-       const API_URL = window.location.hostname === 'localhost' 
-    ? 'http://localhost:5000'
-    : 'https://caregiving-1.onrender.com';
-
-        console.log('Sending to:', `${API_URL}/api/contact`);
 
         try {
-            const response = await fetch(`${API_URL}/api/contact`, {
+            console.log('Submitting form data:', formData);
+            
+            // Submit to PHP endpoint
+            const response = await fetch('http://localhost/care/php/contact.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -41,14 +41,16 @@ document.addEventListener('DOMContentLoaded', () => {
             const data = await response.json();
 
             if (response.ok) {
-                new ToastNotification().show({
+                const toast = new ToastNotification();
+                toast.show({
                     type: 'success',
-                    title: 'Success!',
+                    title: 'Message Sent!',
                     message: 'Thank you for your message. We will get back to you soon!'
                 });
                 form.reset();
             } else {
-                new ToastNotification().show({
+                const toast = new ToastNotification();
+                toast.show({
                     type: 'error',
                     title: 'Error',
                     message: data.message || 'Something went wrong. Please try again.'

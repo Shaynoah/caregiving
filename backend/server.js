@@ -1,147 +1,80 @@
 ﻿const express = require('express');
-const mongoose = require('mongoose');
+const mysql = require('mysql2');
 const cors = require('cors');
+const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
 
+// Load environment variables
 dotenv.config();
+
 const app = express();
 
-// CORS Configuration
-const allowedOrigins = [
-    'http://localhost:3000',
-    'http://localhost:5000',
-    'https://caregiving-1.onrender.com',
-    'https://caregiving-api.onrender.com'
-];
+// Enable CORS and JSON parsing
+app.use(cors());
+app.use(bodyParser.json());
+app.use(express.static('../')); // Serve static files from parent directory
 
-app.use(cors({
-    origin: function (origin, callback) {
-        // Allow requests with no origin (like mobile apps or curl requests)
-        if (!origin) return callback(null, true);
-        
-        if (allowedOrigins.indexOf(origin) !== -1) {
-            callback(null, true);
-        } else {
-            console.log('Blocked origin:', origin);
-            callback(new Error('Not allowed by CORS'));
-        }
-    },
-    credentials: true
-}));
-
-app.use(express.json());
-
-// Environment configuration
-const NODE_ENV = process.env.NODE_ENV || 'development';
-const PORT = process.env.PORT || 5000;
-const mongoURI = process.env.MONGODB_URI || 'mongodb+srv://carebridge_user:care2025@cluster0.hbuq5.mongodb.net/carebridge?retryWrites=true&w=majority';
-
-// Log startup configuration (without sensitive data)
-console.log(`Server starting in ${NODE_ENV} mode on port ${PORT}`);
-
-const contactSchema = new mongoose.Schema({
-    name: { type: String, required: true },
-    email: { type: String, required: true },
-    phone: { type: String, required: true },
-    service: { type: String, required: true },
-    message: { type: String, required: true },
-    source: { type: String, default: 'contact' },
-    createdAt: { type: Date, default: Date.now }
+// Create MySQL connection
+const db = mysql.createConnection({
+    host: process.env.DB_HOST || 'localhost',
+    user: process.env.DB_USER || 'root',
+    password: process.env.DB_PASS || '',
+    database: process.env.DB_NAME || 'carebridge'
 });
 
-// MongoDB connection handling
-mongoose.connect(mongoURI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    serverSelectionTimeoutMS: 5000
-}).then(() => {
-    console.log('Connected to MongoDB successfully');
-}).catch((err) => {
-    console.error('MongoDB connection error:', err);
-    process.exit(1);
+// Connect to MySQL
+db.connect((err) => {
+    if (err) {
+        console.error('Error connecting to MySQL:', err);
+        return;
+    }
+    console.log('Connected to MySQL database');
 });
 
-mongoose.connection.on('error', (err) => {
-    console.error('MongoDB error:', err);
-});
+// Contact form endpoint
+app.post('/php/contact.php', (req, res) => {
+    const { name, email, phone, service, message } = req.body;
 
-mongoose.connection.on('disconnected', () => {
-    console.warn('MongoDB disconnected. Attempting to reconnect...');
-});
-
-mongoose.connection.on('reconnected', () => {
-    console.log('MongoDB reconnected successfully');
-});
-
-const Contact = mongoose.model('Contact', contactSchema);
-
-app.post('/api/contact', async (req, res) => {
-    try {
-        console.log('Received contact request from origin:', req.headers.origin);
-        console.log('Request headers:', req.headers);
-        console.log('Request body:', req.body);
-        
-        const contact = new Contact(req.body);
-        console.log('Created contact object:', contact);
-        
-        const saved = await contact.save();
-        console.log('Successfully saved contact:', saved);
-        
-        res.status(200).json({
-            success: true,
-            message: 'Message sent successfully!',
-            contact: saved
-        });
-    } catch (error) {
-        console.error('Error in /api/contact:', error);
-        console.error('Error details:', {
-            name: error.name,
-            message: error.message,
-            stack: error.stack
-        });
-        res.status(500).json({
+    // Validate required fields
+    if (!name || !email || !phone || !service || !message) {
+        return res.status(400).json({
             success: false,
-            message: 'Error saving message: ' + error.message
+            message: 'All fields are required'
         });
     }
-});
 
-// Health check endpoint
-app.get('/health', (req, res) => {
-    const healthcheck = {
-        uptime: process.uptime(),
-        message: 'OK',
-        timestamp: Date.now(),
-        mongodbStatus: mongoose.connection.readyState === 1 ? 'connected' : 'disconnected'
-    };
-    try {
-        res.status(200).json(healthcheck);
-    } catch (error) {
-        healthcheck.message = error;
-        res.status(503).json(healthcheck);
-    }
-});
+    // Insert into database
+    const sql = 'INSERT INTO contacts (name, email, phone, service_type, message) VALUES (?, ?, ?, ?, ?)';
+    const values = [name, email, phone, service, message];
 
-app.get('/api/contacts', async (req, res) => {
-    try {
-        const contacts = await Contact.find().sort('-createdAt');
-        res.json(contacts);
-    } catch (error) {
-        res.status(500).json({ error: 'Error fetching contacts' });
-    }
-});
+    db.query(sql, values, (err, result) => {
+        if (err) {
+            console.error('Error saving contact:', err);
+            return res.status(500).json({
+                success: false,
+                message: 'Failed to save your message. Please try again.'
+            });
+        }
 
-async function startServer() {
-    try {
-        await mongoose.connect(mongoURI);
-        console.log('Connected to MongoDB');
-        app.listen(PORT, () => {
-            console.log(`Server running on port ${PORT}`);
+        res.json({
+            success: true,
+            message: 'Thank you! Your message has been sent successfully.'
         });
-    } catch (err) {
-        console.error('MongoDB error:', err);
-        process.exit(1);
-    }
-}
+    });
+});
 
-startServer();
+// Error handling middleware
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).json({
+        success: false,
+        message: 'Something went wrong! Please try again.'
+    });
+});
+
+// Start server
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+    console.log(`Database: ${process.env.DB_NAME || 'carebridge'}`);
+});

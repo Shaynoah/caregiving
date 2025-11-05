@@ -1,9 +1,51 @@
-console.log('toast.js loaded');
-
 // Toast Notification System
 class ToastNotification {
     constructor() {
         console.log('Creating toast notification system');
+        this.init();
+    }
+
+    init() {
+        console.log('Creating toast container');
+        // Check if container already exists
+        let container = document.querySelector('.toast-container');
+        if (!container) {
+            container = document.createElement('div');
+            container.className = 'toast-container';
+            document.body.appendChild(container);
+        }
+        this.container = container;
+    }
+
+    show({ type = 'success', title = '', message = '', duration = 5000 }) {
+        const toast = document.createElement('div');
+        toast.className = `toast-message ${type}`;
+        
+        const icon = type === 'success' ? '✓' : '✕';
+        
+        toast.innerHTML = `
+            <div class="toast-icon">${icon}</div>
+            <div class="toast-content">
+                ${title ? `<div class="toast-title">${title}</div>` : ''}
+                <div class="toast-description">${message}</div>
+            </div>
+        `;
+        
+        this.container.appendChild(toast);
+        
+        // Trigger reflow to enable animation
+        toast.offsetHeight;
+        
+        // Show the toast
+        toast.classList.add('show');
+        
+        // Remove the toast after duration
+        setTimeout(() => {
+            toast.classList.remove('show');
+            setTimeout(() => {
+                toast.remove();
+            }, 300);
+        }, duration);
         this.init();
     }
 
