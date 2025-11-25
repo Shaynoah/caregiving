@@ -28,8 +28,11 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             console.log('Submitting form data:', formData);
             
+            // Use relative path so this works when the site is hosted under a subdirectory
+            const endpoint = 'php/contact.php';
+            console.log('Contact endpoint:', endpoint);
             // Submit to PHP endpoint
-            const response = await fetch('http://localhost/care/php/contact.php', {
+            const response = await fetch(endpoint, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

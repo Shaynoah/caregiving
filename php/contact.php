@@ -1,43 +1,31 @@
 <?php
-// Enable error reporting
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+require_once 'config.php';
 
-// Set error log file
-ini_set('log_errors', 1);
-ini_set('error_log', __DIR__ . '/debug.log');
-
-// Log the request
-error_log("Request received from: " . $_SERVER['HTTP_ORIGIN'] ?? 'Unknown origin');
-error_log("Request method: " . $_SERVER['REQUEST_METHOD']);
-
-// Enable CORS for all origins in development
-$allowed_origins = array(
+// CORS: Allow the site's origin or localhost for testing (add domains as needed)
+$allowed_origins = [
+    'https://carebridgekenya.com',
+    'https://www.carebridgekenya.com',
     'http://localhost',
-    'http://127.0.0.1',
-    'http://localhost:5500',
-    'http://127.0.0.1:5500'
-);
-
-$origin = $_SERVER['HTTP_ORIGIN'] ?? '';
-if (in_array($origin, $allowed_origins)) {
-    header("Access-Control-Allow-Origin: " . $origin);
+    'http://127.0.0.1'
+];
+if (isset($_SERVER['HTTP_ORIGIN'])) {
+    $origin = $_SERVER['HTTP_ORIGIN'];
+    if (in_array($origin, $allowed_origins)) {
+        header("Access-Control-Allow-Origin: " . $origin);
+    }
 }
-
 header("Access-Control-Allow-Methods: POST, OPTIONS");
-header("Access-Control-Allow-Headers: Content-Type");
-header("Content-Type: application/json");
+header("Access-Control-Allow-Headers: Content-Type, Accept");
+header("Access-Control-Allow-Credentials: true");
 
 // Handle preflight requests
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-    error_log("Handling OPTIONS request");
     http_response_code(200);
     exit();
 }
 
 // Only allow POST method
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    error_log("Invalid method: " . $_SERVER['REQUEST_METHOD']);
     http_response_code(405);
     die(json_encode([
         'success' => false,
@@ -45,14 +33,9 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     ]));
 }
 
-// Include database configuration
-require_once 'config.php';
-
 // Get POST data
 $json = file_get_contents('php://input');
 $data = json_decode($json, true);
-
-error_log("Received data: " . print_r($data, true));
 
 // Validate required fields
 $required = ['name', 'email', 'phone', 'service', 'message'];
@@ -67,34 +50,39 @@ foreach ($required as $field) {
 }
 
 // Sanitize input
-$name = $conn->real_escape_string($data['name']);
-$email = $conn->real_escape_string($data['email']);
-$phone = $conn->real_escape_string($data['phone']);
-$service_type = $conn->real_escape_string($data['service']); // Will be saved as service_type in DB
-$message = $conn->real_escape_string($data['message']);
+$name = $data['name'];
+$email = $data['email'];
+$phone = $data['phone'];
+$service_type = $data['service'];
+$message = $data['message'];
 
-// Insert into database
-$sql = "INSERT INTO contacts (name, email, phone, service_type, message) 
-        VALUES ('$name', '$email', '$phone', '$service_type', '$message')";
+// Use prepared statement to insert safely
+$stmt = $conn->prepare(
+    "INSERT INTO contacts (name, email, phone, service_type, message) VALUES (?, ?, ?, ?, ?)"
+);
 
-try {
-    if ($conn->query($sql)) {
-        http_response_code(200);
-        echo json_encode([
-            'success' => true,
-            'message' => 'Thank you! Your message has been sent successfully.'
-        ]);
-    } else {
-        throw new Exception($conn->error);
-    }
-} catch (Exception $e) {
-    error_log("Database error: " . $e->getMessage());
-    http_response_code(500);
+if (!$stmt) {
+    die(json_encode([
+        'success' => false,
+        'message' => 'Prepare failed: ' . $conn->error
+    ]));
+}
+
+// Bind parameters and execute
+$stmt->bind_param("sssss", $name, $email, $phone, $service_type, $message);
+
+if ($stmt->execute()) {
+    echo json_encode([
+        'success' => true,
+        'message' => 'Thank you! Your message has been sent successfully.'
+    ]);
+} else {
     echo json_encode([
         'success' => false,
-        'message' => 'Failed to save your message. Please try again.'
+        'message' => 'Failed to save your message: ' . $stmt->error
     ]);
 }
 
+$stmt->close();
 $conn->close();
 ?>

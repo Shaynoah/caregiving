@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>CareBridge Kenya - Professional Home Care & Elderly Care Services in Nairobi</title>
@@ -28,6 +29,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
   <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 
+  
   <style>
     /* Animations */
     
@@ -1622,7 +1624,8 @@
                     }
                     
                     // Send to backend
-                    const response = await fetch('http://localhost:5000/api/contact', {
+                    const endpoint = 'php/contact.php';
+                    const response = await fetch(endpoint, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'
@@ -1743,7 +1746,8 @@
                         message: formData.get('message')
                     };
 
-                    const response = await fetch('http://localhost:5000/api/contact', {
+                    const endpoint = 'php/contact.php';
+                    const response = await fetch(endpoint, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -1770,7 +1774,8 @@
     
 
                 try {
-                    const response = await fetch("http://localhost:5000/api/contact", {
+                  const endpoint = 'php/contact.php';
+                  const response = await fetch(endpoint, {
                         method: "POST",
                         headers: { 
                             "Content-Type": "application/json",

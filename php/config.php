@@ -1,33 +1,37 @@
 <?php
-// Enable error reporting in development, disable in production
-if ($_SERVER['SERVER_NAME'] === 'localhost') {
-    error_reporting(E_ALL);
-    ini_set('display_errors', 1);
-} else {
-    error_reporting(0);
-    ini_set('display_errors', 0);
-}
-
-// Database configuration - Change these for Hostinger
-$db_host = 'localhost';     // Usually 'localhost' on Hostinger
-$db_user = 'root';         // Your Hostinger database username
-$db_pass = '';             // Your Hostinger database password
-$db_name = 'carebridge';   // Your Hostinger database name
-
-// Create database connection
-try {
-    $conn = new mysqli($db_host, $db_user, $db_pass, $db_name);
-
-    // Check connection
-    if ($conn->connect_error) {
-        error_log("Database connection failed: " . $conn->connect_error);
-        throw new Exception('Database connection failed');
-    }
-} catch (Exception $e) {
-    header('Content-Type: application/json');
+// Load .env file
+$env_file = __DIR__ . '/.env';
+if (!file_exists($env_file)) {
+    // Fail early with a neutral message — the real errors are logged on the server
+    error_log('.env file missing: ' . $env_file);
     die(json_encode([
         'success' => false,
-        'message' => 'Service temporarily unavailable'
+        'message' => 'Service temporarily unavailable (missing configuration)'
+    ]));
+}
+
+$config = parse_ini_file($env_file);
+if (!$config) {
+    error_log('Failed to parse .env file at ' . $env_file);
+    die(json_encode([
+        'success' => false,
+        'message' => 'Service temporarily unavailable (invalid configuration)'
+    ]));
+}
+
+$db_host = $config['DB_HOST'] ?? '';
+$db_user = $config['DB_USER'] ?? '';
+$db_pass = $config['DB_PASS'] ?? '';
+$db_name = $config['DB_NAME'] ?? '';
+
+// Create database connection
+$conn = new mysqli($db_host, $db_user, $db_pass, $db_name);
+
+// Check connection
+if ($conn->connect_error) {
+    die(json_encode([
+        'success' => false,
+        'message' => 'Database connection failed: ' . $conn->connect_error
     ]));
 }
 ?>

@@ -111,7 +111,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     message: contactForm.message.value
                 };
 
-                const response = await fetch('http://localhost:5000/api/contact', {
+                // Use project PHP endpoint on the same origin (works locally and in production)
+                const endpoint = 'php/contact.php';
+                const response = await fetch(endpoint, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

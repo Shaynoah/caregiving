@@ -28,9 +28,14 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             console.log('Submitting form data:', formData);
             
+            // Use relative path so this works when the site is hosted under a subdirectory
+            const endpoint = 'php/contact.php';
+            console.log('Contact endpoint:', endpoint);
             // Submit to PHP endpoint
-            const response = await fetch('http://localhost/care/php/contact.php', {
+            const response = await fetch(endpoint, {
                 method: 'POST',
+                mode: 'cors',
+                cache: "no-cache",
                 headers: {
                     'Content-Type': 'application/json',
                     'Accept': 'application/json'
@@ -41,16 +46,14 @@ document.addEventListener('DOMContentLoaded', () => {
             const data = await response.json();
 
             if (response.ok) {
-                const toast = new ToastNotification();
-                toast.show({
+                new ToastNotification().show({
                     type: 'success',
                     title: 'Message Sent!',
                     message: 'Thank you for your message. We will get back to you soon!'
                 });
                 form.reset();
             } else {
-                const toast = new ToastNotification();
-                toast.show({
+                new ToastNotification().show({
                     type: 'error',
                     title: 'Error',
                     message: data.message || 'Something went wrong. Please try again.'
@@ -68,4 +71,3 @@ document.addEventListener('DOMContentLoaded', () => {
         submitBtn.disabled = false;
     });
 });
-

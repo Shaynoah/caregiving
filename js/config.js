@@ -8,7 +8,8 @@ const config = {
         console.log('Current hostname:', hostname);
 
         if (hostname === 'localhost' || hostname === '127.0.0.1') {
-            return 'http://localhost:5000';  // Local development
+            // Return the site origin as the default API base so builds use the same domain
+            return window.location.origin;  // Local development or production uses same origin
         }
 
         // For Render deployment
